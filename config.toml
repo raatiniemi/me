@@ -2,3 +2,6 @@ baseURL = "https://raatiniemi.me/"
 languageCode = "en-us"
 title = "raatiniemi"
 theme = "hugo-coder"
+
+[params]
+  author = "Tobias Raatiniemi"
