@@ -38,3 +38,8 @@ theme = "hugo-coder"
   icon = "fab fa-get-pocket fa-2x"
   weight = 1
   url = "https://getpocket.com/@raatiniemi"
+
+[[menu.main]]
+  name = "Thoughts"
+  weight = 1
+  url  = "/thoughts/"
