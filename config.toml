@@ -5,3 +5,5 @@ theme = "hugo-coder"
 
 [params]
   author = "Tobias Raatiniemi"
+
+  hidecredits = true
