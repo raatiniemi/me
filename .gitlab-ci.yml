@@ -12,5 +12,6 @@ build:
   artifacts:
     paths:
       - public_html
+    expire_in: 3 hours
   only:
     - master
