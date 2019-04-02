@@ -1,0 +1,16 @@
+stages:
+  - build
+
+build:
+  stage: build
+  image: jojomi/hugo
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - hugo version
+    - hugo -d public_html
+  artifacts:
+    paths:
+      - public_html
+  only:
+    - master
