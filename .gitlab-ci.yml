@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy
 
 build:
   stage: build
@@ -13,5 +14,21 @@ build:
     paths:
       - public_html
     expire_in: 3 hours
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk update && apk add openssh-client bash rsync
+  script:
+    - eval $(ssh-agent -s)
+    - bash -c 'ssh-add <(echo "${SSH_PRIVATE_KEY}")'
+    - mkdir -p ~/.ssh
+    - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
+    - rsync -hrvz --delete --exclude=_ -e 'ssh -p 22' public_html/ "${SSH_USER_HOST_LOCATION}"
+  after_script:
+    - rm -rf ~/.ssh
   only:
     - master
