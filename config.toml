@@ -3,6 +3,11 @@ languageCode = "en-us"
 title = "raatiniemi"
 theme = "hugo-coder"
 
+[[menu.main]]
+  name = "Thoughts"
+  weight = 1
+  url  = "/thoughts/"
+
 [params]
   author = "Tobias Raatiniemi"
   avatarurl = "images/avatar.jpeg"
@@ -38,8 +43,3 @@ theme = "hugo-coder"
   icon = "fab fa-get-pocket fa-2x"
   weight = 1
   url = "https://getpocket.com/@raatiniemi"
-
-[[menu.main]]
-  name = "Thoughts"
-  weight = 1
-  url  = "/thoughts/"
