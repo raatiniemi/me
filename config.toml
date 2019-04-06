@@ -9,8 +9,9 @@ theme = "hugo-coder"
   url  = "/thoughts/"
 
 [params]
-  author = "Tobias Raatiniemi"
   avatarurl = "images/avatar.jpeg"
+  author = "Tobias Raatiniemi"
+  info = "Software developer from Sweden"
 
   hidecredits = true
 
