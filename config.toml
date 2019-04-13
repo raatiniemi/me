@@ -20,6 +20,8 @@ theme = "hugo-coder"
 
   hidecredits = true
 
+  custom_css = ["css/style.css"]
+
 [[params.social]]
   name = "GitLab"
   icon = "fab fa-gitlab fa-2x"
