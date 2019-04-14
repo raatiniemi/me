@@ -18,7 +18,7 @@ theme = "hugo-coder"
   author = "Tobias Raatiniemi"
   info = "Software developer from Sweden"
 
-  hidecredits = true
+  hidecredits = false
 
   custom_css = ["css/style.css"]
 
