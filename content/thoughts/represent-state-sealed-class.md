@@ -65,4 +65,4 @@ state since the value will not change. The value for the active state will still
 be calculated for each separate call.
 
 [^1]: The real `TimeInterval`-class is a bit more complicated, but it has been simplified here for the sake of this example.
-[^2]: This is often referred to [Tribal knowledge](https://en.wikipedia.org/wiki/Tribal_knowledge).
+[^2]: This is often referred to as [Tribal knowledge](https://en.wikipedia.org/wiki/Tribal_knowledge).
