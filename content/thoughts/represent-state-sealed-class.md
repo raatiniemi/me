@@ -52,9 +52,7 @@ As a simple example, the active state needs to be able to transition from an
 active state to an inactive state, i.e. a `clockOut`-method.
 
 ```
-if (timeInterval !is TimeInterval.Active) {
-  throw IllegalStateException()
-}
+check(timeInterval !is TimeInterval.Active)
 
 timeInterval.clockOut(Date())
 ```
