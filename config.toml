@@ -18,6 +18,9 @@ theme = "hugo-coder"
   author = "Tobias Raatiniemi"
   info = "Software developer from Sweden"
 
+  favicon_32 = "/images/favicon-32x32.png"
+  favicon_16 = "/images/favicon-16x16.png"
+
   hidecredits = false
 
   custom_css = ["css/style.css"]
