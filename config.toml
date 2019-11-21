@@ -22,6 +22,7 @@ theme = "hugo-coder"
   favicon_16 = "/images/favicon-16x16.png"
 
   hidecredits = false
+  colorscheme = "auto"
 
   custom_css = ["css/style.css"]
 
