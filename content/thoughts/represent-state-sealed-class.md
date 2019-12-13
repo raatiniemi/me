@@ -13,7 +13,7 @@ As the application was originally written in Java, the state is inferred from
 the value of the `stop` property, i.e. if the value is zero the time interval is
 active [^1].
 
-```
+```kotlin
 data class TimeInterval(val start: Long, val stop: Long)
 
 val active = TimeInterval(start = 1, stop = 0)
@@ -29,7 +29,7 @@ different articles, books and podcasts on functional programming, I decided to
 improve this by using a `sealed class` with each state represented by a
 different class.
 
-```
+```kotlin
 sealed class TimeInterval {
   data class Active(val start: Long): TimeInterval()
 
@@ -51,7 +51,7 @@ enforce this logic.
 As a simple example, the active state needs to be able to transition from an
 active state to an inactive state, i.e. a `clockOut`-method.
 
-```
+```kotlin
 check(timeInterval !is TimeInterval.Active)
 
 timeInterval.clockOut(Date())

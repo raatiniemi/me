@@ -22,7 +22,7 @@ current list from the adapter and iterate though the list to find if any loaded
 time intervals is active, the code for this is as follows (located in the view
 model).
 
-```
+```kotlin
 private fun findActivePosition(weeks: List<TimeReportWeek>): Int? {
     return weeks.filter(::containsActiveDay)
         .map(weeks::indexOf)
