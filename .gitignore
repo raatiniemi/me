@@ -1,4 +1,5 @@
 resources/
+public/
 public_html/
 
 .DS_Store
