@@ -3,7 +3,6 @@ title = "Setup test state with use cases"
 date = "2019-12-09"
 +++
 
-<!-- Should we replace test data with test state? -->
 Setting up state when writing tests can be a cumbersome tasks, especially if the
 system under test requires a lot of different components. For the last couple of
 months I've been using a new approach for my projects.
