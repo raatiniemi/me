@@ -19,10 +19,9 @@ build:
 
 deploy:
   stage: deploy
-  image: alpine:latest
+  image: debian:buster
   before_script:
-    - apk add openssh-client rsync
-    - eval $(ssh-agent -s)
+    - apt-get update -qq && apt-get install -y -qq openssh-client rsync --no-install-recommends
     - mkdir -p ~/.ssh
     - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
     - echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_ed25519
