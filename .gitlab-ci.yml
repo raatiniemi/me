@@ -19,13 +19,13 @@ build:
 
 deploy:
   stage: deploy
-  image: debian:buster
+  image: alpine:latest
   before_script:
-    - apt-get update -qq && apt-get install -y -qq openssh-client rsync --no-install-recommends
+    - apk add openssh-client bash rsync
+    - eval $(ssh-agent -s)
+    - bash -c 'ssh-add <(echo "${SSH_PRIVATE_KEY}")'
     - mkdir -p ~/.ssh
     - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
-    - echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_ed25519
-    - chmod 600 ~/.ssh/id_ed25519
   script:
     - rsync -hrvz --delete --exclude=_ -e 'ssh -p 22' public_html/ "${SSH_USER_HOST_LOCATION}"
   after_script:
