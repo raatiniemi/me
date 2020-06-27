@@ -22,11 +22,12 @@ deploy:
   image: alpine:latest
   before_script:
     - apk add openssh-client rsync
-  script:
     - eval $(ssh-agent -s)
-    - sh -c 'ssh-add <(echo "${SSH_PRIVATE_KEY}")'
     - mkdir -p ~/.ssh
     - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
+    - echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+  script:
     - rsync -hrvz --delete --exclude=_ -e 'ssh -p 22' public_html/ "${SSH_USER_HOST_LOCATION}"
   after_script:
     - rm -rf ~/.ssh
