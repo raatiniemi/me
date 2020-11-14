@@ -1,5 +1,6 @@
 stages:
   - build
+  - registry
   - deploy
 
 build:web:
@@ -14,6 +15,29 @@ build:web:
     expire_in: 3 hours
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+
+registry:web:
+  stage: registry
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  before_script:
+    - mkdir -p /root/.docker
+    - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin "${CI_REGISTRY}"
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
+  after_script:
+    - docker logout "${CI_REGISTRY}"
+    - rm -rf /root/.docker
+  needs:
+    - build:web
+  tags:
+    - docker-cli
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
 
 deploy:web:
   stage: deploy
