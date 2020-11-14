@@ -14,8 +14,6 @@ build:
     paths:
       - public_html
     expire_in: 3 hours
-  only:
-    - master
 
 deploy:
   stage: deploy
