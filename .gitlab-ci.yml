@@ -54,9 +54,9 @@ deploy:web:
     - rsync -hrvz --delete --exclude=_ -e 'ssh -p 22' public_html/ "${SSH_USER_HOST_LOCATION}"
   after_script:
     - rm -rf ~/.ssh
-  needs:
-    - build:web
   only:
     - master
+  needs:
+    - build:web
   tags:
     - docker
