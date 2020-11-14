@@ -13,6 +13,8 @@ build:web:
     paths:
       - public_html
     expire_in: 3 hours
+  tags:
+    - docker
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
@@ -56,3 +58,5 @@ deploy:web:
     - build:web
   only:
     - master
+  tags:
+    - docker
