@@ -2,7 +2,7 @@ stages:
   - build
   - deploy
 
-build:
+build:web:
   stage: build
   image: jojomi/hugo
   variables:
@@ -15,7 +15,7 @@ build:
       - public_html
     expire_in: 3 hours
 
-deploy:
+deploy:web:
   stage: deploy
   image: alpine:latest
   before_script:
