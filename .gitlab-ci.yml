@@ -1,12 +1,21 @@
 stages:
+  - lint
   - build
+  - registry
   - deploy
 
-build:
+lint:playbook:
+  image: python:buster
+  stage: lint
+  script:
+    - pip install ansible-lint
+    - ansible-lint --force-color
+  tags:
+    - docker
+
+build:me:
   stage: build
   image: jojomi/hugo
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
   script:
     - hugo version
     - hugo -d public_html
@@ -14,21 +23,56 @@ build:
     paths:
       - public_html
     expire_in: 3 hours
+  needs: []
+  tags:
+    - docker
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+registry:me:
+  stage: registry
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  before_script:
+    - mkdir -p /root/.docker
+    - echo "${CI_REGISTRY_PASSWORD}" | docker login -u "${CI_REGISTRY_USER}" --password-stdin "${CI_REGISTRY}"
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
+  after_script:
+    - docker logout "${CI_REGISTRY}"
+    - rm -rf /root/.docker
   only:
     - master
+  needs:
+    - build:me
+  tags:
+    - docker-cli
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
 
-deploy:
+deploy:me:
   stage: deploy
-  image: alpine:latest
+  image: python:buster
   before_script:
-    - apk add openssh-client bash rsync
     - eval $(ssh-agent -s)
-    - bash -c 'ssh-add <(echo "${SSH_PRIVATE_KEY}")'
+    - ssh-add <(echo "${SSH_PRIVATE_KEY}")
     - mkdir -p ~/.ssh
     - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
   script:
-    - rsync -hrvz --delete --exclude=_ -e 'ssh -p 22' public_html/ "${SSH_USER_HOST_LOCATION}"
+    - pip install ansible
+    - ansible-playbook -i .ansible/inventories/production.yml .ansible/main.yml
   after_script:
     - rm -rf ~/.ssh
   only:
     - master
+  needs:
+    - lint:playbook
+    - registry:me
+  tags:
+    - docker
+  variables:
+    ANSIBLE_REMOTE_USER: "${SSH_USER}"
