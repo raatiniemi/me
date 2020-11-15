@@ -64,23 +64,3 @@ deploy:playbook:
     - docker
   variables:
     ANSIBLE_REMOTE_USER: "${SSH_USER}"
-
-deploy:web:
-  stage: deploy
-  image: alpine:latest
-  before_script:
-    - apk add openssh-client bash rsync
-    - eval $(ssh-agent -s)
-    - bash -c 'ssh-add <(echo "${SSH_PRIVATE_KEY}")'
-    - mkdir -p ~/.ssh
-    - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
-  script:
-    - rsync -hrvz --delete --exclude=_ -e 'ssh -p 22' public_html/ "${SSH_USER_HOST_LOCATION}"
-  after_script:
-    - rm -rf ~/.ssh
-  only:
-    - master
-  needs:
-    - build:web
-  tags:
-    - docker
