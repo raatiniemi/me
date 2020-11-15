@@ -33,6 +33,8 @@ registry:web:
   after_script:
     - docker logout "${CI_REGISTRY}"
     - rm -rf /root/.docker
+  only:
+    - master
   needs:
     - build:web
   tags:
@@ -54,6 +56,8 @@ deploy:playbook:
     - ansible-playbook -i .ansible/inventories/production.yml .ansible/main.yml
   after_script:
     - rm -rf ~/.ssh
+  only:
+    - master
   needs:
     - registry:web
   tags:
