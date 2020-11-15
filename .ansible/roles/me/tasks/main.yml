@@ -6,10 +6,10 @@
     password: "{{ container_registry_password }}"
     registry_url: "{{ container_registry }}"
 
-- name: ensure application is running
+- name: ensure application is created
   become: yes
   docker_compose:
-    project_name: me
+    project_name: "{{ me_project_name }}"
     pull: yes
     definition:
       version: '3.8'
@@ -19,6 +19,12 @@
           network_mode: bridge
           environment:
             VIRTUAL_HOST: "{{ me_hostname }}"
+  register: output
+
+- name: ensure application is running
+  ansible.builtin.assert:
+    that:
+      - "output.services.app.{{ me_project_name }}_app_1.state.running"
 
 - name: ensure logged out from registry
   become: yes
