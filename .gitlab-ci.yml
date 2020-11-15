@@ -3,7 +3,7 @@ stages:
   - registry
   - deploy
 
-build:web:
+build:me:
   stage: build
   image: jojomi/hugo
   script:
@@ -18,7 +18,7 @@ build:web:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
-registry:web:
+registry:me:
   stage: registry
   image: docker:stable
   services:
@@ -36,14 +36,14 @@ registry:web:
   only:
     - master
   needs:
-    - build:web
+    - build:me
   tags:
     - docker-cli
   variables:
     DOCKER_HOST: tcp://docker:2376
     DOCKER_TLS_CERTDIR: "/certs"
 
-deploy:playbook:
+deploy:me:
   stage: deploy
   image: python:buster
   before_script:
@@ -59,7 +59,7 @@ deploy:playbook:
   only:
     - master
   needs:
-    - registry:web
+    - registry:me
   tags:
     - docker
   variables:
