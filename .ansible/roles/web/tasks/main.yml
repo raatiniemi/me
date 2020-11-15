@@ -1,0 +1,13 @@
+---
+- name: ensure logged in to registry
+  become: yes
+  docker_login:
+    username: "{{ container_registry_user }}"
+    password: "{{ container_registry_password }}"
+    registry_url: "{{ container_registry }}"
+
+- name: ensure logged out from registry
+  become: yes
+  docker_login:
+    state: absent
+    registry_url: "{{ container_registry }}"

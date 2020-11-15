@@ -41,6 +41,28 @@ registry:web:
     DOCKER_HOST: tcp://docker:2376
     DOCKER_TLS_CERTDIR: "/certs"
 
+deploy:playbook:
+  stage: deploy
+  image: python:buster
+  before_script:
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "${SSH_PRIVATE_KEY}")
+    - mkdir -p ~/.ssh
+    - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
+  script:
+    - pip install ansible
+    - ansible-playbook -i .ansible/inventories/production.yml .ansible/main.yml
+  after_script:
+    - rm -rf ~/.ssh
+  needs:
+    - registry:web
+  tags:
+    - docker
+  variables:
+    ANSIBLE_SSH_HOST_KEY: "${SSH_HOST_KEY}"
+    ANSIBLE_REMOTE_USER: "${SSH_USER}"
+    ANSIBLE_SSH_PRIVATE_KEY: "${SSH_PRIVATE_KEY}"
+
 deploy:web:
   stage: deploy
   image: alpine:latest
