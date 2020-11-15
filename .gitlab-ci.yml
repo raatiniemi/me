@@ -59,9 +59,7 @@ deploy:playbook:
   tags:
     - docker
   variables:
-    ANSIBLE_SSH_HOST_KEY: "${SSH_HOST_KEY}"
     ANSIBLE_REMOTE_USER: "${SSH_USER}"
-    ANSIBLE_SSH_PRIVATE_KEY: "${SSH_PRIVATE_KEY}"
 
 deploy:web:
   stage: deploy
