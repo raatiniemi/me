@@ -1,4 +1,4 @@
 all:
   hosts:
-    web:
+    me:
       ansible_host: raatiniemi.me

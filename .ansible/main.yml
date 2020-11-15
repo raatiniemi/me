@@ -1,8 +1,8 @@
 ---
 - name: ensure that environment is configured
-  hosts: web
+  hosts: me
   roles:
-    - web
+    - me
   vars:
     container_registry: "{{ lookup('env', 'CI_REGISTRY') }}"
     container_registry_user: "{{ lookup('env', 'CI_REGISTRY_USER') }}"
