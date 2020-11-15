@@ -1,0 +1,3 @@
+---
+me_hostname: raatiniemi.me
+me_container_image: "{{ container_registry }}/rahome/me:latest"

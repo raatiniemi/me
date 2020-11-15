@@ -6,6 +6,20 @@
     password: "{{ container_registry_password }}"
     registry_url: "{{ container_registry }}"
 
+- name: ensure application is running
+  become: yes
+  docker_compose:
+    project_name: me
+    pull: yes
+    definition:
+      version: '3.8'
+      services:
+        app:
+          image: "{{ me_container_image }}"
+          network_mode: bridge
+          environment:
+            VIRTUAL_HOST: "{{ me_hostname }}"
+
 - name: ensure logged out from registry
   become: yes
   docker_login:
