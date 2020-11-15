@@ -19,6 +19,7 @@
           network_mode: bridge
           environment:
             VIRTUAL_HOST: "{{ me_hostname }}"
+            LETSENCRYPT_HOST: "{{ me_hostname }}"
   register: output
 
 - name: ensure application is running
