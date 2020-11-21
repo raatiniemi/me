@@ -6,7 +6,7 @@
     password: "{{ container_registry_password }}"
     registry_url: "{{ container_registry }}"
 
-- name: ensure application is created
+- name: ensure application is started
   become: yes
   docker_compose:
     project_name: "{{ me_project_name }}"
@@ -16,10 +16,8 @@
       services:
         app:
           image: "{{ me_container_image }}"
-          network_mode: bridge
-          environment:
-            VIRTUAL_HOST: "{{ me_hostname }}"
-            LETSENCRYPT_HOST: "{{ me_hostname }}"
+          ports:
+            - "8080:80"
   register: output
 
 - name: ensure application is running
