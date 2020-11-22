@@ -28,30 +28,24 @@ theme = "hugo-coder"
 
 [[params.social]]
   name = "GitLab"
-  icon = "fab fa-gitlab fa-2x"
+  icon = "fa fa-gitlab fa-2x"
   weight = 1
   url = "https://gitlab.com/raatiniemi/"
 
 [[params.social]]
   name = "GitHub"
-  icon = "fab fa-github fa-2x"
+  icon = "fa fa-github fa-2x"
   weight = 1
   url = "https://github.com/raatiniemi/"
 
 [[params.social]]
   name = "LinkedIn"
-  icon = "fab fa-linkedin-in fa-2x"
+  icon = "fa fa-linkedin fa-2x"
   weight = 1
   url = "https://se.linkedin.com/in/tobiasraatiniemi"
 
 [[params.social]]
-  name = "Docker Hub"
-  icon = "fab fa-docker fa-2x"
-  weight = 1
-  url = "https://hub.docker.com/u/raatiniemi"
-
-[[params.social]]
   name = "Pocket"
-  icon = "fab fa-get-pocket fa-2x"
+  icon = "fa fa-get-pocket fa-2x"
   weight = 1
   url = "https://getpocket.com/@raatiniemi"
