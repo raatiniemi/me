@@ -1,14 +1,14 @@
 ---
 - name: ensure logged in to registry
   become: yes
-  docker_login:
+  community.general.docker_login:
     username: "{{ container_registry_user }}"
     password: "{{ container_registry_password }}"
     registry_url: "{{ container_registry }}"
 
 - name: ensure application is started
   become: yes
-  docker_compose:
+  community.general.docker_compose:
     project_name: "{{ me_project_name }}"
     pull: yes
     definition:
@@ -27,6 +27,6 @@
 
 - name: ensure logged out from registry
   become: yes
-  docker_login:
+  community.general.docker_login:
     state: absent
     registry_url: "{{ container_registry }}"
