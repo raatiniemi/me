@@ -18,6 +18,7 @@
           image: "{{ me_container_image }}"
           ports:
             - "8080:80"
+          restart: always
   register: output
 
 - name: ensure application is running
