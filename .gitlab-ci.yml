@@ -4,14 +4,13 @@ stages:
   - registry
   - deploy
 
+include:
+  - '/.gitlab-ci/ansible.yml'
+
 lint:playbook:
-  image: python:buster
   stage: lint
-  script:
-    - pip install ansible-lint
-    - ansible-lint --force-color
-  tags:
-    - docker
+  extends:
+    - .ansible-lint
 
 build:me:
   stage: build
@@ -56,23 +55,13 @@ registry:me:
 
 deploy:me:
   stage: deploy
-  image: python:buster
-  before_script:
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "${SSH_PRIVATE_KEY}")
-    - mkdir -p ~/.ssh
-    - echo "${SSH_HOST_KEY}" > ~/.ssh/known_hosts
-  script:
-    - pip install ansible
-    - ansible-playbook -i .ansible/inventories/production.yml .ansible/main.yml
-  after_script:
-    - rm -rf ~/.ssh
+  extends:
+    - .ansible-playbook
   only:
     - master
   needs:
     - lint:playbook
     - registry:me
-  tags:
-    - docker
   variables:
-    ANSIBLE_REMOTE_USER: "${SSH_USER}"
+    ANSIBLE_INVENTORY: .ansible/inventories/production.yml
+    ANSIBLE_PLAYBOOK: .ansible/main.yml
