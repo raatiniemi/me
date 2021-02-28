@@ -17,17 +17,25 @@
         definition:
           version: '3.8'
           services:
-            app:
-              image: "{{ container_registry }}/rahome/me:latest"
-              ports:
-                - "8080:80"
+            web:
+              container_name: raatiniemi_me
+              image: registry.gitlab.com/rahome/me:latest
               restart: always
+              networks:
+                - traefik
+          networks:
+            traefik:
+              name: traefik
+              external: true
       register: output
 
     - name: ensure application is running
       ansible.builtin.assert:
+        quiet: yes
+        success_msg: application is running
+        fail_msg: application is not running
         that:
-          - "output.services.app.me_app_1.state.running"
+          - "{{ output.services.web.raatiniemi_me.state.running }}"
 
     - name: ensure logged out from registry
       become: yes
