@@ -1,3 +1,4 @@
 ---
 collections:
-  - community.general
+  - name: community.general
+    version: 2.0.0
