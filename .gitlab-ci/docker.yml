@@ -1,4 +1,5 @@
 ---
+# yamllint disable rule:line-length
 .docker-registry:
   image: docker:stable
   services:
@@ -23,3 +24,4 @@
   variables:
     DOCKER_HOST: tcp://docker:2376
     DOCKER_TLS_CERTDIR: "/certs"
+# yamllint enable rule:line-length
