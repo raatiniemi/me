@@ -8,4 +8,5 @@ rules:
 
 ignore: |
   .cache
+  themes
   venv
