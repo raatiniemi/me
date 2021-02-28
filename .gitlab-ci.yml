@@ -58,6 +58,7 @@ deploy:me:
   only:
     - master
   needs:
+    - lint:yaml
     - lint:playbook
     - registry:me
   variables:
