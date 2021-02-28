@@ -1,6 +1,6 @@
 ---
 - name: ensure that environment is configured
-  hosts: me
+  hosts: web
   tasks:
     - name: ensure logged in to registry
       become: yes
