@@ -1,4 +1,0 @@
----
-me_project_name: me
-me_hostname: raatiniemi.me
-me_container_image: "{{ container_registry }}/rahome/me:latest"
