@@ -1,3 +1,4 @@
+---
 variables:
   PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
   ANSIBLE_COLLECTIONS_PATHS: "${CI_PROJECT_DIR}/.cache/ansible-collections"
