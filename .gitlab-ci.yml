@@ -8,6 +8,18 @@ include:
   - '/.gitlab-ci/ansible.yml'
   - '/.gitlab-ci/docker.yml'
 
+lint:yaml:
+  stage: lint
+  image: python:buster
+  script: |
+    test -f requirements.txt && pip install -r requirements.txt
+    yamllint -c .yamllint.yml .
+  interruptible: true
+  variables:
+    PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
+  tags:
+    - docker
+
 lint:playbook:
   stage: lint
   extends:
