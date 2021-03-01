@@ -25,6 +25,8 @@ lint:playbook:
   stage: lint
   extends:
     - .ansible-lint
+  variables:
+    ANSIBLE_PLAYBOOK: .ansible/main.yml
 
 build:me:
   stage: build
