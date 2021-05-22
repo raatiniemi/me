@@ -20,12 +20,13 @@ The application have already been through a couple of rewrites, the first
 version was written in [golang](https://golang.org/) (back in '14 or '15).
 Second version was in [PHP](https://php.net/), might be an odd choice but it
 still was my primary language at the time. The third iteration was in Java,
-which was later migrated into [Kotlin](https://kotlinlang.org/). 
+which was later migrated into [Kotlin](https://kotlinlang.org/).
 
-And, now I've rewritten it in Rust, the primary reason is to attempt to reduce
-size, both while running and "on disk". One added bonus is that I get to try
-Rust with a more realistic use case. This is my first real world exposure to
-Rust, which probably can be seen in my naive implementation.
+And, now I've rewritten it in [Rust](https://www.rust-lang.org/), the primary
+reason is to attempt to reduce size, both while running and "on disk". One
+added bonus is that I get to try Rust with a more realistic use case. This is
+my first real world exposure to Rust, which probably can be seen in my naive
+implementation.
 
 ## Containers
 
