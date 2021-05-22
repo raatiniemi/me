@@ -24,7 +24,7 @@ theme = "hugo-coder"
   hidecredits = false
   colorscheme = "auto"
 
-  custom_css = ["css/style.css"]
+  customCSS = ["css/style.css"]
 
 [[params.social]]
   name = "GitLab"
