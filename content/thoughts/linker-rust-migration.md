@@ -111,7 +111,7 @@ do some additional investigations. To start with I'd like to see if I can
 improve the execution time for the Rust application by performing certain tasks
 in parallel. But first, it's probably a good idea to implement some kind of
 tracing in the application to expose the actual bottlenecks before implementing
-any kind of performance improvement.
+any kind of performance improvement[^2].
 
 ## Conclusions
 
@@ -132,4 +132,8 @@ bit different but overall it was not that big of a hurdle, and it allowed me to
 use familiar functional concepts to ease the implementation.
 
 [^1]: Using the alpine variant for Rust caused runtime performance issues,
-      these issues was resolved by migrating to the slim variant.
+      these issues was resolved by migrating to the slim variant (which is
+      detailed in the [tracing article for linker](../linker-rust-tracing/)).
+[^2]: I've gone through some work to improve the performance of the
+      application, which I've written about in a separate article regarding
+      [tracing a rust application](../linker-rust-tracing/).
