@@ -50,8 +50,10 @@ application are:
 | Purpose | Name | Size |
 | :--- | :--- | ---: |
 | Build and test JVM of application | gradle:6.7.0-jdk15 | 790MB |
-| Build Rust of application | rust:alpine | 700MB |
-| Test Rust of application | rustlang/rust:nightly | 1.69GB |
+| Build Rust of application | rust:slim-buster | 621MB |
+| Test Rust of application | rustlang/rust:nightly-slim | 1.07GB |
+| ~~Build Rust of application~~[^1] | rust:alpine | 700MB |
+| ~~Test Rust of application~~[^1] | rustlang/rust:nightly | 1.69GB |
 
 As we can see, the Rust pipeline requires us to use two separate containers.
 However, this is most likely only a temporary issue and won't be necessary once
@@ -65,8 +67,10 @@ The containers used to run the actual application, including base images, are:
 | :--- | :--- | ---: |
 | JVM application base image | openjdk:15-alpine | 343MB |
 | JVM application | registry.gitlab.com/rahome/linker | 350MB |
-| Rust application base image | alpine:latest | 5.61MB |
-| Rust application | registry.gitlab.com/rahome/rust-linker | 11.9MB |
+| Rust application base image | debian:buster-slim | 69.3MB |
+| Rust application | registry.gitlab.com/rahome/rust-linker | 76.1MB |
+| ~~Rust application base image~~[^1] | alpine:latest | 5.61MB |
+| ~~Rust application (alpine)~~[^1] | registry.gitlab.com/rahome/rust-linker | 11.9MB |
 
 As we can see, the actual applications regardless of runtime are similar in
 size, however the base image used for the JVM application is significantly
@@ -87,7 +91,8 @@ running `docker stats` in a separate window.
 | Variant | Execution time | Memory consumption (peak) |
 | --- | :--- | ---: |
 | JVM | 8 seconds | ~400MB |
-| Rust | 1 minute and 10 seconds | ~80MB |
+| Rust (slim) | 9 seconds | ~75MB |
+| ~~Rust (alpine)~~[^1] | 1 minute and 10 seconds | ~80MB |
 
 As we can see there is a clear difference between the variants on both
 execution time and memory consumption. While developing the applications I've
@@ -125,3 +130,6 @@ really good companion to have.
 The language is not that different from what I'm used to, sure the syntax is a
 bit different but overall it was not that big of a hurdle, and it allowed me to
 use familiar functional concepts to ease the implementation.
+
+[^1]: Using the alpine variant for Rust caused runtime performance issues,
+      these issues was resolved by migrating to the slim variant.
