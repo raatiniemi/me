@@ -69,8 +69,8 @@ registry:me:
   stage: registry
   extends:
     - .docker-registry
-  rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  only:
+    - master
   needs:
     - build:me
 
@@ -80,10 +80,9 @@ trivy:me:
   stage: trivy
   extends:
     - .trivy
-  rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: always
+  only:
+    - master
+    - schedules
   needs:
     - job: registry:me
       optional: true
@@ -95,8 +94,8 @@ deploy:me:
   stage: deploy
   extends:
     - .ansible-playbook
-  rules:
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  only:
+    - master
   needs:
     - lint:yaml
     - lint:playbook
