@@ -12,7 +12,10 @@ include:
     file:
       - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
-  - '/.gitlab-ci/Trivy.gitlab-ci.yml'
+  - project: 'rahome/trivy-cache'
+    ref: main
+    file:
+      - '/Trivy.gitlab-ci.yml'
   - '/.gitlab-ci/ansible.yml'
 
 # stage: lint
