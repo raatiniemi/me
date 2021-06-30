@@ -101,6 +101,7 @@ deploy:me:
     - lint:yaml
     - lint:playbook
     - registry:me
+    - trivy:me
   variables:
     ANSIBLE_INVENTORY: .ansible/inventories/production.yml
     ANSIBLE_PLAYBOOK: .ansible/main.yml
