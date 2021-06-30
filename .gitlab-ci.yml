@@ -3,6 +3,7 @@ stages:
   - lint
   - build
   - registry
+  - trivy
   - deploy
 
 include:
@@ -11,6 +12,10 @@ include:
     file:
       - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
+  - project: 'rahome/trivy-cache'
+    ref: main
+    file:
+      - '/Trivy.gitlab-ci.yml'
   - '/.gitlab-ci/ansible.yml'
 
 # stage: lint
@@ -60,6 +65,20 @@ registry:me:
     - master
   needs:
     - build:me
+
+# stage: trivy
+
+trivy:me:
+  stage: trivy
+  extends:
+    - .trivy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  needs:
+    - job: registry:me
+      optional: true
+      artifacts: false
 
 # stage: deploy
 
