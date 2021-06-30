@@ -20,17 +20,17 @@ lint:docker:
   extends:
     - .docker-lint
 
-lint:yaml:
-  stage: lint
-  extends:
-    - .yaml-lint
-
 lint:playbook:
   stage: lint
   extends:
     - .ansible-lint
   variables:
     ANSIBLE_PLAYBOOK: .ansible/main.yml
+
+lint:yaml:
+  stage: lint
+  extends:
+    - .yaml-lint
 
 # stage: build
 
