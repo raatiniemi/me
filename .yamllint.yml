@@ -8,5 +8,5 @@ rules:
 
 ignore: |
   .cache
+  .venv
   themes
-  venv
