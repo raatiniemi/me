@@ -76,7 +76,6 @@ registry:me:
 
 # stage: trivy
 
-# yamllint disable rule:line-length
 trivy:me:
   stage: trivy
   extends:
@@ -88,7 +87,6 @@ trivy:me:
     - job: registry:me
       optional: true
       artifacts: false
-# yamllint enable rule:line-length
 
 # stage: deploy
 
