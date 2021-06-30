@@ -9,9 +9,9 @@ include:
   - project: 'rahome/gitlab-ci-templates'
     ref: main
     file:
+      - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
   - '/.gitlab-ci/ansible.yml'
-  - '/.gitlab-ci/docker.yml'
 
 lint:yaml:
   stage: lint
