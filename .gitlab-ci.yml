@@ -24,15 +24,19 @@ lint:docker:
   stage: lint
   extends:
     - .docker-lint
-  except:
-    - schedules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - when: on_success
 
 lint:playbook:
   stage: lint
   extends:
     - .ansible-lint
-  except:
-    - schedules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - when: on_success
   variables:
     ANSIBLE_PLAYBOOK: .ansible/main.yml
 
@@ -40,8 +44,10 @@ lint:yaml:
   stage: lint
   extends:
     - .yaml-lint
-  except:
-    - schedules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - when: on_success
 
 # stage: build
 
@@ -51,8 +57,10 @@ build:me:
   script:
     - hugo version
     - hugo -d public_html
-  except:
-    - schedules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - when: on_success
   artifacts:
     paths:
       - public_html
@@ -69,8 +77,10 @@ registry:me:
   stage: registry
   extends:
     - .docker-registry
-  only:
-    - master
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   needs:
     - build:me
 
@@ -80,9 +90,10 @@ trivy:me:
   stage: trivy
   extends:
     - .trivy
-  only:
-    - master
-    - schedules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   needs:
     - job: registry:me
       optional: true
@@ -94,8 +105,8 @@ deploy:me:
   stage: deploy
   extends:
     - .ansible-playbook
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   needs:
     - lint:yaml
     - lint:playbook
