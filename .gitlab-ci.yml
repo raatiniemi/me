@@ -108,10 +108,14 @@ deploy:me:
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   needs:
-    - lint:yaml
-    - lint:playbook
-    - registry:me
-    - trivy:me
+    - job: lint:yaml
+      artifacts: false
+    - job: lint:playbook
+      artifacts: false
+    - job: registry:me
+      artifacts: false
+    - job: trivy:me
+      artifacts: false
   variables:
     ANSIBLE_INVENTORY: .ansible/inventories/production.yml
     ANSIBLE_PLAYBOOK: .ansible/main.yml
