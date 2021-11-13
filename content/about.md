@@ -1,7 +1,6 @@
 # Hi there! I'm Tobias.
 
-I'm an enthusiastic software developer living in Sweden. I love building things
-that brings value to people.
+I'm an enthusiastic software developer living in Sweden. I love building things with technology that brings value to people.
 
 ## At work...
 
