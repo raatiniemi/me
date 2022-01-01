@@ -9,7 +9,7 @@ The issue was that not all data sent to the endpoint was available in the contro
 
 The data missing from the incoming data was of course the data for the `repeated` field, everything else seemed to work as intended. Ehm, perhaps not everything, we also had issues with `enum` properties not being mapped correctly. Both of these issues turned out to be caused by the same underlying issue.
 
-In .NET MVC, if you are using a custom data type (`class`, `record`, etc.) as an argument for a `HTTP` exposed controller method, the value will be deserialized using a best effort approach. Don't get be wrong it works well, unless you venture off the beaten path. I would consider our issues here a bit of an edge case as it did work if we'd use any other class, with the same properties, than the one generated from our protobuf declaration.
+In .NET MVC, if you are using a custom data type (`class`, `record`, etc.) as an argument for a `HTTP` exposed controller method, the value will be deserialized using a best effort approach. Don't get me wrong it works well, unless you venture off the beaten path. I would consider our issues here a bit of an edge case as it did work if we'd use any other class, with the same properties, than the one generated from our protobuf declaration.
 
 Based on my current understanding, the issue is with .NET MVC not handling the `RepeatedField` as intended. I've yet to figure out why that is as the `RepeatedField` implements but `IList<T>` and `IList`, which should be enough. The issue with the `enum` properties was that the order of the enum cases was different in our protobuf declaration than in the C# enum, and the .NET MVC deserialization process was mapping based on the index and not name/value.
 
