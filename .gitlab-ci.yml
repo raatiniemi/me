@@ -3,6 +3,7 @@ include:
   - project: 'rahome/gitlab-ci-templates'
     ref: main
     file:
+      - '/templates/Checkov.gitlab-ci.yml'
       - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
   - project: 'rahome/trivy-cache'
@@ -65,6 +66,18 @@ registry:me:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   needs:
     - job: build:me
+
+sast:checkov:
+  extends:
+    - .checkov-junit
+  allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  needs: []
+  variables:
+    CHECKOV_COMMAND: "-f Dockerfile"
 
 sast:trivy:
   extends:
