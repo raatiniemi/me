@@ -1,11 +1,4 @@
 ---
-stages:
-  - lint
-  - build
-  - registry
-  - trivy
-  - deploy
-
 include:
   - project: 'rahome/gitlab-ci-templates'
     ref: main
@@ -18,10 +11,7 @@ include:
       - '/Trivy.gitlab-ci.yml'
   - '/.gitlab-ci/ansible.yml'
 
-# stage: lint
-
-lint:docker:
-  stage: lint
+lint:dockerfile:
   extends:
     - .docker-lint
   rules:
@@ -30,7 +20,6 @@ lint:docker:
     - when: on_success
 
 lint:playbook:
-  stage: lint
   extends:
     - .ansible-lint
   rules:
@@ -41,7 +30,6 @@ lint:playbook:
     ANSIBLE_PLAYBOOK: .ansible/main.yml
 
 lint:yaml:
-  stage: lint
   extends:
     - .yaml-lint
   rules:
@@ -49,10 +37,7 @@ lint:yaml:
       when: never
     - when: on_success
 
-# stage: build
-
 build:me:
-  stage: build
   image: jojomi/hugo
   script:
     - hugo version
@@ -71,10 +56,7 @@ build:me:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
-# stage: registry
-
 registry:me:
-  stage: registry
   extends:
     - .docker-registry
   rules:
@@ -82,12 +64,9 @@ registry:me:
       when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   needs:
-    - build:me
+    - job: build:me
 
-# stage: trivy
-
-trivy:me:
-  stage: trivy
+sast:trivy:
   extends:
     - .trivy
   rules:
@@ -99,10 +78,7 @@ trivy:me:
       optional: true
       artifacts: false
 
-# stage: deploy
-
 deploy:me:
-  stage: deploy
   extends:
     - .ansible-playbook
   rules:
@@ -116,7 +92,7 @@ deploy:me:
       artifacts: false
     - job: registry:me
       artifacts: false
-    - job: trivy:me
+    - job: sast:trivy
       artifacts: false
   variables:
     ANSIBLE_INVENTORY: .ansible/inventories/production.yml
