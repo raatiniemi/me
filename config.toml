@@ -6,7 +6,7 @@ theme = "hugo-coder"
 [[menu.main]]
   name = "About"
   weight = 1
-  url  = "/about"
+  url  = "/about/"
 
 [[menu.main]]
   name = "Thoughts"
