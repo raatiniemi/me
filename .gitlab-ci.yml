@@ -3,110 +3,28 @@ include:
   - project: 'rahome/gitlab-ci-templates'
     ref: main
     file:
-      - '/templates/Checkov.gitlab-ci.yml'
-      - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
-  - project: 'rahome/trivy-cache'
-    ref: main
-    file:
-      - '/Trivy.gitlab-ci.yml'
-  - '/.gitlab-ci/ansible.yml'
-
-lint:dockerfile:
-  extends:
-    - .docker-lint
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - when: on_success
-
-lint:playbook:
-  extends:
-    - .ansible-lint
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - when: on_success
-  variables:
-    ANSIBLE_PLAYBOOK: .ansible/main.yml
 
 lint:yaml:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   extends:
     - .yaml-lint
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - when: on_success
+  needs: []
 
-build:me:
-  image: jojomi/hugo
-  script:
+pages:
+  image: jojomi/hugo:latest
+  before_script:
     - hugo version
-    - hugo -d public_html
+  script:
+    - hugo -d public
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - when: on_success
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
   artifacts:
     paths:
-      - public_html
-    expire_in: 3 hours
+      - public
   needs: []
   tags:
     - docker
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-
-registry:me:
-  extends:
-    - .docker-registry
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  needs:
-    - job: build:me
-
-sast:checkov:
-  extends:
-    - .checkov-junit
-  allow_failure: true
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: always
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  needs: []
-  variables:
-    CHECKOV_COMMAND: "-f Dockerfile"
-
-sast:trivy:
-  extends:
-    - .trivy
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: always
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  needs:
-    - job: registry:me
-      optional: true
-      artifacts: false
-
-deploy:me:
-  extends:
-    - .ansible-playbook
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  needs:
-    - job: lint:yaml
-      artifacts: false
-    - job: lint:playbook
-      artifacts: false
-    - job: registry:me
-      artifacts: false
-    - job: sast:trivy
-      artifacts: false
-  variables:
-    ANSIBLE_INVENTORY: .ansible/inventories/production.yml
-    ANSIBLE_PLAYBOOK: .ansible/main.yml
