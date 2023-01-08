@@ -3,7 +3,20 @@ include:
   - project: 'rahome/gitlab-ci-templates'
     ref: main
     file:
+      - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+
+lint:dockerfile:
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+  extends:
+    - .docker-lint
+  needs: []
 
 lint:yaml:
   rules:
@@ -12,19 +25,27 @@ lint:yaml:
     - .yaml-lint
   needs: []
 
-pages:
-  image: jojomi/hugo:latest
+build:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  image: klakegg/hugo:0.107.0-ubuntu-ci
+  needs: []
   before_script:
     - hugo version
   script:
-    - hugo -d public
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - hugo -d public_html
   artifacts:
     paths:
-      - public
-  needs: []
-  tags:
-    - docker
+      - public_html
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+  tags:
+    - docker
+
+registry:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  extends:
+    - .docker-registry
+  needs:
+    - job: build
