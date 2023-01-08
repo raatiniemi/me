@@ -33,6 +33,12 @@ theme = "hugo-coder"
   url = "https://gitlab.com/raatiniemi/"
 
 [[params.social]]
+  name = "Mastodon"
+  icon = "fa fa-mastodon fa-2x"
+  weight = 1
+  url = "https://social.raatiniemi.me/@tobias"
+
+[[params.social]]
   name = "GitHub"
   icon = "fa fa-github fa-2x"
   weight = 1
