@@ -22,5 +22,5 @@ just to simply refine my knowledge of the domain at hand.
 
 Also, introducing new a perspective or way of thinking, e.g.
 [functional](https://en.wikipedia.org/wiki/Functional_programming) vs.
-[object oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming),
+[object-oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming),
 is always good. And, it'll keep things fun and interesting.

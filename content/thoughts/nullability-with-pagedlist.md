@@ -9,7 +9,7 @@ caused by a `NullPointerException`.
 
 The application is written in Kotlin (converted of the last year from Java), and
 I've been careful regarding the use of optional/nullable values. So, the rise of
-crashes was very confusing and I've gone over the related code multiple times
+crashes was very confusing, and I've gone over the related code multiple times
 without finding any red flags.
 
 The crashes occurred when the time report view[^1] had been opened for one

@@ -7,7 +7,7 @@ After I completed the [Rust migration of linker](../linker-rust-migration/), I
 was dissatisfied with the runtime performance of the application. This caused
 me to spend some additional time to attempt to resolve the performance issues.
 
-In order to resolve performance issues in a methotical way you need to know
+In order to resolve performance issues in a methodical way you need to know
 where the issues are, otherwise you might optimize parts of the code that is
 not even the bottleneck.
 
@@ -39,7 +39,7 @@ directories and creating an index of the content, and the "link nodes"-method
 traverse the index to see if we can create symbolic links for any missing nodes
 based on configuration. The two first methods are primarily IO bound as they
 traverse the file system and the last method is CPU bound, and since the
-application is single threaded it's perhaps not a suprice that the CPU bound
+application is single threaded it's perhaps not a surprised that the CPU bound
 method is slow.
 
 The next thing that I did was to include a data-parallelism library, I went
@@ -68,7 +68,7 @@ alpine image and I don't want to speculate. However, I do recall running into
 a similar scenario, or reading about it, before.
 
 Using the `debian:buster-slim`, instead of `alpine:latest`, comes at a small
-cost with regards to image size. It went from ~5MB to ~76MB, which is still
+cost with regard to image size. It went from ~5MB to ~76MB, which is still
 a long way from the initial JVM variant at ~350MB, I've updated the
 [initial article](../linker-rust-migration/) with the new figures.
 

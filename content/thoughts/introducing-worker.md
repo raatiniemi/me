@@ -14,7 +14,7 @@ time with hours and minutes so the difference calculation is based on this fact.
 If I'd work 15 minutes overtime one day, this would be displayed as `+0.15` on
 the time report.
 
-If this seem similar to your schedule, why not give it a try? It's available at
+If this seems similar to your schedule, why not give it a try? It's available at
 [Google Play as open beta](https://play.google.com/apps/testing/me.raatiniemi.worker),
 feedback is always appreciated.
 

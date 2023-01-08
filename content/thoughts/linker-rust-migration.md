@@ -18,7 +18,7 @@ symbolic links from one of the target directories back to the source directory.
 
 The application have already been through a couple of rewrites, the first
 version was written in [golang](https://golang.org/) (back in '14 or '15).
-Second version was in [PHP](https://php.net/), might be an odd choice but it
+Second version was in [PHP](https://php.net/), might be an odd choice, but it
 still was my primary language at the time. The third iteration was in Java,
 which was later migrated into [Kotlin](https://kotlinlang.org/).
 
@@ -124,8 +124,8 @@ execution time should be solvable with some data parallelism.
 As with most people coming to Rust, the borrow checker really caused some
 headaches but after a few days I got used to it, at least to some degree. It
 did cause me some issues later on, but only when I either did not know how to
-implement the thing I wanted, was tired or just lazy. But in the end, it's a
-really good companion to have.
+implement the thing I wanted, was tired or just lazy. But in the end, it's an
+excellent companion to have.
 
 The language is not that different from what I'm used to, sure the syntax is a
 bit different but overall it was not that big of a hurdle, and it allowed me to

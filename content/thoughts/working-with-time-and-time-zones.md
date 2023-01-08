@@ -16,7 +16,7 @@ intervals is to ensure that the time report feature the time correctly
 over multiple days.
 
 This is certainly an edge case (at least for how I use the application),
-but it has been in the back log for at least a couple of years. My, very
+but it has been in the backlog for at least a couple of years. My, very
 naive, thinking was to check if the time interval start and stop was on
 different days and then split them around midnight.
 
@@ -56,7 +56,7 @@ start was converted to `21:30` and stop was `22:30`).
 
 It really feels like the more time I spend working with time and time
 zones, the more issues and edge cases I see. I know that I'm not alone
-here, but there's certainly a difference in reading about all of the
+here, but there's certainly a difference in reading about all the
 issues other people have and experiencing them first hand.
 
 One thing I've also noted is that I don't store enough information along

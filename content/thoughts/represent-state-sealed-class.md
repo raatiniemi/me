@@ -20,7 +20,7 @@ val active = TimeInterval(start = 1, stop = 0)
 val inactive = TimeInterval(start = 1, stop = 2)
 ```
 
-Using this approach to represent the different states works, but it require that
+Using this approach to represent the different states works, but it requires that
 each developer working with the code knows about it [^2]. And, the code do not
 in any way communicate this to the developer, other than the usage pattern.
 
