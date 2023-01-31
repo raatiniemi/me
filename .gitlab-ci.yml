@@ -5,15 +5,14 @@ include:
     file:
       - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
-
-workflow:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - when: always
+  - project: 'rahome/trivy-cache'
+    ref: main
+    file: '/Trivy.gitlab-ci.yml'
 
 lint:dockerfile:
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CI_COMMIT_BRANCH'
   extends:
     - .docker-lint
@@ -21,6 +20,8 @@ lint:dockerfile:
 
 lint:yaml:
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   extends:
     - .yaml-lint
@@ -28,6 +29,8 @@ lint:yaml:
 
 build:
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   image: klakegg/hugo:0.107.0-ubuntu-ci
   needs: []
@@ -45,8 +48,23 @@ build:
 
 registry:
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
   extends:
     - .docker-registry
   needs:
     - job: build
+
+sast:trivy:
+  extends:
+    - .trivy
+  allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  needs:
+    - job: registry
+      optional: true
+      artifacts: false
