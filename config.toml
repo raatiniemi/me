@@ -21,6 +21,8 @@ theme = "hugo-coder"
   favicon_32 = "/images/favicon-32x32.png"
   favicon_16 = "/images/favicon-16x16.png"
 
+  since = 2019
+
   hidecredits = false
   colorscheme = "auto"
 
