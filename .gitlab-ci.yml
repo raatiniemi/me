@@ -32,7 +32,7 @@ build:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  image: klakegg/hugo:0.107.0-ext-ubuntu-ci
+  image: hugomods/hugo:exts-0.115.0
   needs: []
   before_script:
     - hugo version
