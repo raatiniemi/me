@@ -37,7 +37,7 @@ build:
   before_script:
     - hugo version
   script:
-    - hugo -d public_html
+    - hugo --minify -d public_html
   artifacts:
     paths:
       - public_html
