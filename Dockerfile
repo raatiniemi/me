@@ -2,6 +2,9 @@
 FROM nginxinc/nginx-unprivileged:1.25.1-alpine
 LABEL maintainer="Tobias Raatiniemi <raatiniemi@gmail.com>"
 
+HEALTHCHECK --interval=6s --timeout=3s \
+  CMD curl --fail -so /dev/null http://localhost:8080/
+
 WORKDIR /usr/share/nginx/html
 
 COPY public_html ./
