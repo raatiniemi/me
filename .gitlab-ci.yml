@@ -3,31 +3,15 @@ include:
   - project: 'rahome/gitlab-ci-templates'
     ref: main
     file:
+      - '/templates/Checkov.gitlab-ci.yml'
       - '/templates/Docker.gitlab-ci.yml'
       - '/templates/Yaml.gitlab-ci.yml'
   - project: 'rahome/trivy-cache'
     ref: main
     file: '/Trivy.gitlab-ci.yml'
 
-lint:dockerfile:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_COMMIT_BRANCH'
-  extends:
-    - .docker-lint
-  needs: []
-
-lint:yaml:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: never
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  extends:
-    - .yaml-lint
-  needs: []
-
-build:
+build:me:
+  stage: build
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
@@ -46,7 +30,7 @@ build:
   tags:
     - docker
 
-registry:
+build:docker:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
@@ -54,17 +38,50 @@ registry:
   extends:
     - .docker-registry
   needs:
-    - job: build
+    - job: build:me
 
-sast:trivy:
+test:checkov:
+  stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
   extends:
-    - .trivy
-  allow_failure: true
+    - .checkov-junit
+  needs: []
+  variables:
+    CHECKOV_COMMAND: "-f Dockerfile"
+
+test:docker:
+  stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  extends:
+    - .docker-lint
+  needs: []
+
+test:trivy:
+  stage: test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: always
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  extends:
+    - .trivy
   needs:
     - job: registry
       optional: true
       artifacts: false
+  allow_failure: true
+
+test:yaml:
+  stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+  extends:
+    - .yaml-lint
+  needs: []
