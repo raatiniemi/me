@@ -13,9 +13,11 @@ theme = "hugo-coder"
   weight = 1
   url  = "/thoughts/"
 
+[author]
+  name = "Tobias Raatiniemi"
+
 [params]
   avatarurl = "images/avatar.jpeg"
-  author = "Tobias Raatiniemi"
   info = "Software developer from Sweden"
 
   favicon_32 = "/images/favicon-32x32.png"
