@@ -53,9 +53,3 @@ theme = "hugo-coder"
   icon = "fa fa-linkedin fa-2x"
   weight = 1
   url = "https://se.linkedin.com/in/tobiasraatiniemi"
-
-[[params.social]]
-  name = "Pocket"
-  icon = "fa fa-get-pocket fa-2x"
-  weight = 1
-  url = "https://getpocket.com/@raatiniemi"
