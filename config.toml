@@ -1,4 +1,4 @@
-baseURL = "https://raatiniemi.me/"
+baseURL = "https://raatiniemi.se/"
 languageCode = "en-us"
 title = "raatiniemi"
 theme = "hugo-coder"
