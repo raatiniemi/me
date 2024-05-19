@@ -12,4 +12,4 @@ From there, in late 2012, I joined a team building the business platform used by
 
 ## At work...
 
-And now, since 2017, I work in the DevOps department at [Atea Sverige AB](https://www.atea.se/), where our primary focus is to build and maintain different products in, among others, the health care and educational sectors. I'm also leading the work to introduce more DevOps practices into our workflows as well as maintaining and improving our CI/CD infrastructure.
+And now, since 2017, I work as a Principal Engineer at a consulting company, where one of our primary focus is to build and maintain different products in, among others, the health care and educational sectors. My role also includes introducing more DevOps practices into our workflow, managing our server infrastructure as well as maintaining and improving our CI/CD infrastructure.
