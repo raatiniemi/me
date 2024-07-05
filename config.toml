@@ -13,10 +13,8 @@ theme = "hugo-coder"
   weight = 1
   url  = "/thoughts/"
 
-[author]
-  name = "Tobias Raatiniemi"
-
 [params]
+  author = "Tobias Raatiniemi"
   avatarurl = "images/avatar.jpeg"
   info = "Software developer from Sweden"
 
