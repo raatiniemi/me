@@ -1,5 +1,5 @@
 # checkov:skip=CKV_DOCKER_3:The base image handles user creation
-FROM nginxinc/nginx-unprivileged:1.26.0-alpine-slim
+FROM nginxinc/nginx-unprivileged:1.27.1-alpine-slim
 LABEL maintainer="Tobias Raatiniemi <raatiniemi@gmail.com>"
 
 HEALTHCHECK --interval=6s --timeout=3s \
