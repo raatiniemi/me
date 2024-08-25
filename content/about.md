@@ -12,4 +12,10 @@ From there, in late 2012, I joined a team building the business platform used by
 
 ## At work...
 
-And now, since 2017, I work as a Principal Engineer at a consulting company, where one of our primary focus is to build and maintain different products in, among others, the health care and educational sectors. My role also includes introducing more DevOps practices into our workflow, managing our server infrastructure as well as maintaining and improving our CI/CD infrastructure.
+And now, since 2017, I work as a Principal Engineer at a consulting company, where my focus is divided between contributing to the development of one of our products in the healthcare sector, leading the improvement work for our internal platform infrastructure, and improve our internal workflows.
+
+Within the product team, my role is to develop and maintain both the Android and iOS applications, as well as associated services, such as a real-time communication system. The mobile applications are written in Kotlin for Android and Swift/Objective-C for iOS. The associated services are built using a diverse technology stack, including Spring Boot with Kotlin, .NET with C#, and Rust. Additionally, I handle server maintenance as well as provide technical support.
+
+Beyond my product work, I lead initiatives to improve and scale our internal DevSecOps platform. This work includes a wide range of tasks, from creating virtual machines, configuring networks, installing and patching applications to designing CI/CD pipeline templates. Our pipeline templates support multiple different languages and platforms, and cover the entire application lifecycle &mdash; from building and testing to security scanning and deploying to different cloud or on-premise environments.
+
+Lastly, I mentor both our junior and senior developers, to help them with advancing their technical skills, solving complex challenges, and adopting best practices for building maintainable software.
