@@ -16,7 +16,7 @@ build:me:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  image: hugomods/hugo:exts-0.120.4
+  image: hugomods/hugo:exts-0.133.0
   needs: []
   before_script:
     - hugo version
