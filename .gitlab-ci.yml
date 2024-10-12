@@ -74,7 +74,6 @@ test:trivy:
     - job: registry
       optional: true
       artifacts: false
-  allow_failure: true
 
 test:yaml:
   stage: test
