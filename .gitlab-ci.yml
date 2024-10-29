@@ -71,7 +71,7 @@ test:trivy:
   extends:
     - .trivy
   needs:
-    - job: registry
+    - job: build:docker
       optional: true
       artifacts: false
 
