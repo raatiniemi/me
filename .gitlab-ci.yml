@@ -31,6 +31,7 @@ build:me:
     - docker
 
 build:docker:
+  stage: build
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
