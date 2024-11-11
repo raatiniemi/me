@@ -2,7 +2,7 @@ FROM nginx:1.27.2-alpine-slim
 LABEL maintainer="Tobias Raatiniemi <raatiniemi@gmail.com>"
 
 RUN set -x \
-  && apk --no-cache add curl=8.10.1-r0 libcrypto3=3.3.2-r1 libssl3=3.3.2-r1
+  && apk --no-cache add curl=8.11.0-r0 libcrypto3=3.3.2-r1 libssl3=3.3.2-r1
 
 HEALTHCHECK --interval=6s --timeout=3s \
   CMD curl --fail -so /dev/null http://localhost:8080/
